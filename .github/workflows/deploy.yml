@@ -1,0 +1,58 @@
+name: Build and deploy sxpo.ru
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check deployment secrets
+        env:
+          PUBLIC_TINA_CLIENT_ID: ${{ secrets.PUBLIC_TINA_CLIENT_ID }}
+          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          test -n "$PUBLIC_TINA_CLIENT_ID" || { echo "Missing PUBLIC_TINA_CLIENT_ID secret"; exit 1; }
+          test -n "$TINA_TOKEN" || { echo "Missing TINA_TOKEN secret"; exit 1; }
+          test -n "$FTP_SERVER" || { echo "Missing FTP_SERVER secret"; exit 1; }
+          test -n "$FTP_USERNAME" || { echo "Missing FTP_USERNAME secret"; exit 1; }
+          test -n "$FTP_PASSWORD" || { echo "Missing FTP_PASSWORD secret"; exit 1; }
+
+      - name: Build TinaCMS admin and static site
+        run: npm run build
+        env:
+          PUBLIC_TINA_CLIENT_ID: ${{ secrets.PUBLIC_TINA_CLIENT_ID }}
+          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+          GITHUB_BRANCH: main
+
+      - name: Deploy dist to Timeweb
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
+          server-dir: /home/w/webkhv/sakhexpo/public_html/
+          local-dir: ./dist/
+          dangerous-clean-slate: false

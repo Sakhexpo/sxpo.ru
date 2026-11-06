@@ -1,6 +1,10 @@
 node_modules/
 dist/
 .astro/
+/.tina/
+/public/admin/
+/tina/__generated__/
+/tina-lock.json
 .DS_Store
 /.env
 /.env.*

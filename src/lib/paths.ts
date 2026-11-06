@@ -16,3 +16,7 @@ export function withBaseSrcset(srcset?: string): string | undefined {
     })
     .join(', ');
 }
+
+export function tourPath(tour: { slug: string; data: { oldPath?: string } }): string {
+  return tour.data.oldPath || `/tur/${tour.slug}/`;
+}

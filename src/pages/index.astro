@@ -3,23 +3,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedTours from '../components/FeaturedTours.astro';
 import MoreTours from '../components/MoreTours.astro';
 import { withBase } from '../lib/paths';
-const orgData = { '@context': 'https://schema.org', '@type': 'TravelAgency', name: 'САХЭКСПО', url: 'https://sxpo.ru/', telephone: '+7-924-312-30-19', address: { '@type': 'PostalAddress', streetAddress: 'ул. Набережная, 29, офис 12', addressLocality: 'Хабаровск', addressRegion: 'Хабаровский край', postalCode: '680000', addressCountry: 'RU' } };
+import home from '../content/pages/home.json';
+import settings from '../content/settings/site.json';
+const orgData = { '@context': 'https://schema.org', '@type': 'TravelAgency', name: 'САХЭКСПО', url: 'https://sxpo.ru/', telephone: settings.phone, address: { '@type': 'PostalAddress', streetAddress: settings.address, addressLocality: 'Хабаровск', addressRegion: 'Хабаровский край', postalCode: '680000', addressCountry: 'RU' } };
 ---
-<BaseLayout title="Зимние туры в Китай из Хабаровска — САХЭКСПО" description="Новый год и зимние каникулы в Китае из Хабаровска: Жаохэ, Цзямусы, Баоцин и горнолыжный отдых. Программы, гостиницы и стоимость зимних туров САХЭКСПО.">
+<BaseLayout title={home.seoTitle} description={home.seoDescription}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(orgData)} />
   <section class="winter-hero">
     <div class="winter-hero-glow" aria-hidden="true"></div>
     <div class="wrap winter-hero-inner">
       <div class="winter-hero-copy">
-        <span class="eyebrow"><i></i> ЗИМНИЕ ТУРЫ ИЗ ХАБАРОВСКА</span>
-        <h1>Новый год<br />в Китае — ближе,<br /><em>чем кажется</em></h1>
-        <p>Жаохэ, Цзямусы и Баоцин. Выберите поездку на новогодние каникулы — поможем с программой, гостиницей и подготовкой к дороге.</p>
-        <div class="hero-actions"><a class="button" href={withBase('/tours')}>Все зимние туры <span aria-hidden="true">↗</span></a><button class="hero-secondary-button" type="button" data-booking-open>Подобрать поездку</button></div>
+        <span class="eyebrow"><i></i> {home.heroEyebrow}</span>
+        <h1>{home.heroTitle.split('\n').map((line, index) => <>{index > 0 && <br />}{index === 2 ? <em>{line}</em> : line}</>)}</h1>
+        <p>{home.heroDescription}</p>
+        <div class="hero-actions"><a class="button" href={withBase('/tours')}>{home.heroButton} <span aria-hidden="true">↗</span></a><button class="hero-secondary-button" type="button" data-booking-open>Подобрать поездку</button></div>
         <div class="winter-proof"><span>САХЭКСПО</span><i></i><span>Туроператор · РТО № 000321</span><i></i><span>Из Хабаровска</span></div>
       </div>
       <div class="winter-hero-art">
-        <img src={withBase('/images/winter/winter-17.webp')} alt="Зимний фестиваль ледяных скульптур в Китае" width="900" height="1100" fetchpriority="high" />
-        <div class="winter-hero-caption"><span>ЗИМНИЙ КИТАЙ</span><strong>Яркие каникулы<br />начинаются рядом</strong></div>
+        <img src={withBase(home.heroImage || '/images/winter/winter-17.webp')} alt="Зимний фестиваль ледяных скульптур в Китае" width="900" height="1100" fetchpriority="high" />
+        <div class="winter-hero-caption"><span>{home.heroCaptionText}</span><strong>{home.heroCaptionTitle}</strong></div>
         <span class="winter-orbit winter-orbit-one" aria-hidden="true"></span><span class="winter-orbit winter-orbit-two" aria-hidden="true"></span>
       </div>
     </div>
@@ -30,30 +32,25 @@ const orgData = { '@context': 'https://schema.org', '@type': 'TravelAgency', nam
   <MoreTours />
 
   <section class="trust-strip" aria-label="Преимущества САХЭКСПО"><div class="wrap trust-items">
-    <div class="trust-card"><span class="trust-icon trust-icon-green" aria-hidden="true">✦</span><div><b>20+</b><span>лет путешествий</span></div></div>
-    <div class="trust-card"><span class="trust-icon trust-icon-blue" aria-hidden="true">⌖</span><div><b>Из Хабаровска</b><span>удобные маршруты рядом</span></div></div>
-    <div class="trust-card trust-certificate"><span class="trust-icon trust-icon-gold" aria-hidden="true">✓</span><div><b>РТО № 000321</b><span>официальный туроператор</span><small>САХЭКСПО · реестр туроператоров</small></div></div>
-    <div class="trust-card"><span class="trust-icon trust-icon-orange" aria-hidden="true">♡</span><div><b>На связи</b><span>помогаем на каждом этапе</span></div></div>
+    {home.trustItems?.map((item, index) => <div class:list={["trust-card", index === 2 && "trust-certificate"]}><span class:list={["trust-icon", ["trust-icon-green", "trust-icon-blue", "trust-icon-gold", "trust-icon-orange"][index]]} aria-hidden="true">{["✦", "⌖", "✓", "♡"][index]}</span><div><b>{item.title}</b><span>{item.text}</span>{index === 2 && <small>САХЭКСПО · реестр туроператоров</small>}</div></div>)}
   </div></section>
 
   <section class="section home-directions" id="directions"><div class="wrap">
-    <div class="section-heading"><div><span class="eyebrow eyebrow-dark">ЗИМНИЕ МАРШРУТЫ</span><h2>Выберите свой формат отдыха</h2></div><p>Короткая поездка на праздники, знакомство с китайскими городами или активная зима на склонах.</p></div>
+    <div class="section-heading"><div><span class="eyebrow eyebrow-dark">{home.directionsEyebrow}</span><h2>{home.directionsTitle}</h2></div><p>{home.directionsDescription}</p></div>
     <div class="winter-direction-grid">
-      <a href={withBase('/tours?direction=Жаохэ')}><span>01</span><strong>Жаохэ</strong><small>Праздничные поездки и отдых в Китае</small><i>↗</i></a>
-      <a href={withBase('/tours?direction=Цзямусы')}><span>02</span><strong>Цзямусы</strong><small>Городские каникулы и зимние огни</small><i>↗</i></a>
-      <a href={withBase('/tours?direction=Баоцин')}><span>03</span><strong>Баоцин</strong><small>Термальные источники и горные лыжи</small><i>↗</i></a>
+      {home.directions?.map((direction, index) => <a href={withBase(`/tours?direction=${encodeURIComponent(direction.title)}`)}><span>0{index + 1}</span><strong>{direction.title}</strong><small>{direction.text}</small><i>↗</i></a>)}
     </div>
   </div></section>
 
   <section class="section home-about"><div class="wrap home-about-inner">
-    <div><span class="eyebrow eyebrow-dark">ПУТЕШЕСТВИЯ С САХЭКСПО</span><h2>Поездка, в которой детали уже продуманы</h2></div>
-    <div><p>Туроператор САХЭКСПО помогает жителям Хабаровска выбрать маршрут в Китай, разобраться в программе и подготовиться к поездке. На страницах туров собраны варианты размещения и условия, а менеджер подтвердит наличие мест и актуальную стоимость.</p><a class="text-link" href={withBase('/about')}>О компании <span aria-hidden="true">↗</span></a></div>
+    <div><span class="eyebrow eyebrow-dark">{home.aboutEyebrow}</span><h2>{home.aboutTitle}</h2></div>
+    <div><p>{home.aboutText}</p><a class="text-link" href={withBase('/about')}>О компании <span aria-hidden="true">↗</span></a></div>
   </div></section>
 
   <section class="home-gallery-links"><div class="wrap home-gallery-grid">
-    <a href={withBase('/photos')}><span class="eyebrow">ФОТОГАЛЕРЕЯ</span><strong>Посмотрите Китай</strong><span class="gallery-link-arrow">↗</span><img src={withBase('/images/gallery/china-01.webp')} alt="Пейзажи и города Китая" loading="lazy" /></a>
-    <a href={withBase('/videos')}><span class="eyebrow">ВИДЕО</span><strong>Путешествия в движении</strong><span class="gallery-link-arrow">↗</span><img src={withBase('/images/winter/winter-03.webp')} alt="Вечерняя улица зимнего Китая" loading="lazy" /></a>
+    <a href={withBase('/photos')}><span class="eyebrow">{home.galleryPhotosEyebrow}</span><strong>{home.galleryPhotosTitle}</strong><span class="gallery-link-arrow">↗</span><img src={withBase('/images/gallery/china-01.webp')} alt="Пейзажи и города Китая" loading="lazy" /></a>
+    <a href={withBase('/videos')}><span class="eyebrow">{home.galleryVideosEyebrow}</span><strong>{home.galleryVideosTitle}</strong><span class="gallery-link-arrow">↗</span><img src={withBase('/images/winter/winter-03.webp')} alt="Вечерняя улица зимнего Китая" loading="lazy" /></a>
   </div></section>
 
-  <section class="contact-band"><div class="wrap contact-inner"><div><span class="eyebrow">ПОМОЖЕМ ВЫБРАТЬ</span><h2>Подскажем, какой тур подойдёт</h2><p>Заполните короткую заявку и выберите, куда отправить сообщение — в MAX или WhatsApp.</p></div><button class="button button-light" type="button" data-booking-open>Оставить заявку <span>↗</span></button></div></section>
+  <section class="contact-band"><div class="wrap contact-inner"><div><span class="eyebrow">{home.contactEyebrow}</span><h2>{home.contactTitle}</h2><p>{home.contactText}</p></div><button class="button button-light" type="button" data-booking-open>{home.contactButton} <span>↗</span></button></div></section>
 </BaseLayout>

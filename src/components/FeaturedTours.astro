@@ -1,12 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
-import { withBase } from '../lib/paths';
+import { withBase, tourPath } from '../lib/paths';
+import home from '../content/pages/home.json';
 const tours = (await getCollection('tours')).filter(({ data }) => data.featured && !data.archived).sort((a, b) => a.data.order - b.data.order).slice(0, 5);
 ---
 <section class="featured-section" aria-labelledby="featured-title">
   <div class="wrap">
     <div class="featured-heading">
-      <div><span class="eyebrow eyebrow-dark">ЗИМА 2026 / 2027</span><h2 id="featured-title">Пять идей для зимней поездки</h2><p>Выберите направление и откройте страницу тура с программой, гостиницами и стоимостью.</p></div>
+      <div><span class="eyebrow eyebrow-dark">{home.featuredEyebrow}</span><h2 id="featured-title">{home.featuredTitle}</h2><p>{home.featuredDescription}</p></div>
       <div class="featured-controls" aria-label="Управление подборкой туров">
         <button type="button" data-featured-scroll="-1" aria-label="Предыдущие туры">←</button>
         <button type="button" data-featured-scroll="1" aria-label="Следующие туры">→</button>
@@ -14,7 +15,7 @@ const tours = (await getCollection('tours')).filter(({ data }) => data.featured 
     </div>
     <div class="featured-track" id="featured-tours" tabindex="0" aria-label="Пять актуальных зимних туров">
       {tours.map((tour, index) => (
-        <a class="featured-card" href={withBase(tour.data.oldPath)}>
+        <a class="featured-card" href={withBase(tourPath(tour))}>
           <img src={withBase(tour.data.images[0])} alt={`${tour.data.destination} зимой — ${tour.data.title}`} width="640" height="440" loading={index < 2 ? 'eager' : 'lazy'} decoding="async" />
           <span class="featured-index">0{index + 1} / 05</span>
           <span class="featured-card-copy"><span>{tour.data.category} <i>·</i> {tour.data.duration}</span><strong>{tour.data.title}</strong><span class="featured-price">{tour.data.priceLabel}</span></span>

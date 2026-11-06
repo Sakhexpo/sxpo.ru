@@ -8,6 +8,7 @@ interface Props {
 import '../styles/global.css';
 import { withBase } from '../lib/paths';
 import OrderForm from '../components/OrderForm.astro';
+import settings from '../content/settings/site.json';
 const {
   title = 'Туры из Хабаровска в Китай и по России — САХЭКСПО',
   description = 'Туры из Хабаровска в Фуюань, Жаохэ, Бэйдайхэ и другие города Китая. Поможем выбрать маршрут, оформить документы и подготовиться к поездке.',
@@ -15,8 +16,9 @@ const {
   canonicalPath = Astro.url.pathname,
 } = Astro.props;
 const canonical = new URL(canonicalPath, 'https://sxpo.ru').toString();
-const maxProfileUrl = 'https://max.ru/u/f9LHodD0cOKKakX25EpPK1U9H8QsbdZc_5tmKuu5ChgdNiUYnaFt2bn2DFU';
-const whatsAppUrl = 'https://wa.me/79243123019';
+const maxProfileUrl = settings.maxUrl;
+const whatsAppUrl = `https://wa.me/${settings.whatsAppNumber}`;
+const phoneHref = `tel:${settings.whatsAppNumber}`;
 ---
 <!doctype html>
 <html lang="ru">
@@ -50,7 +52,7 @@ const whatsAppUrl = 'https://wa.me/79243123019';
         <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
         <nav class="nav" id="main-nav" aria-label="Главная навигация">
           <a href={withBase('/tours')}>Зимние туры</a><a href={withBase('/about')}>О компании</a><a href={withBase('/photos')}>Фото</a><a href={withBase('/videos')}>Видео</a>
-          <a class="nav-phone" href="tel:+79243123019">+7 (924) 312-30-19</a>
+          <a class="nav-phone" href={phoneHref}>{settings.phone}</a>
           <button class="button button-small max-button nav-booking" type="button" data-booking-open>Оставить заявку</button>
         </nav>
       </div>
@@ -58,15 +60,15 @@ const whatsAppUrl = 'https://wa.me/79243123019';
     <main id="main"><slot /></main>
     <footer class="footer" id="about">
       <div class="wrap footer-grid">
-        <div class="footer-brand-column"><a class="brand brand-light" href={withBase('/')}><img class="brand-logo" src={withBase('/logo.svg')} alt="" width="48" height="48" /><span class="brand-name">САХЭКСПО<small>ТУРЫ ИЗ ХАБАРОВСКА</small></span></a><p>Путешествия по Китаю и Дальнему Востоку с заботой о деталях.</p><a href="tel:+79243123019">+7 (924) 312-30-19</a><a href={maxProfileUrl} target="_blank" rel="noopener noreferrer">Написать в MAX ↗</a><a href={whatsAppUrl} target="_blank" rel="noopener noreferrer">Написать в WhatsApp ↗</a></div>
+        <div class="footer-brand-column"><a class="brand brand-light" href={withBase('/')}><img class="brand-logo" src={withBase('/logo.svg')} alt="" width="48" height="48" /><span class="brand-name">САХЭКСПО<small>ТУРЫ ИЗ ХАБАРОВСКА</small></span></a><p>{settings.footerDescription}</p><a href={phoneHref}>{settings.phone}</a><a href={maxProfileUrl} target="_blank" rel="noopener noreferrer">Написать в MAX ↗</a><a href={whatsAppUrl} target="_blank" rel="noopener noreferrer">Написать в WhatsApp ↗</a></div>
         <div><strong>Направления</strong><a href={withBase('/tours')}>Зимние туры</a><a href={withBase('/archive')}>Архив туров</a><a href={withBase('/photos')}>Фотогалерея</a><a href={withBase('/videos')}>Видеогалерея</a></div>
-        <div><strong>О компании</strong><a href={withBase('/about')}>Туроператор САХЭКСПО</a><span>Хабаровск, ул. Набережная, 29, офис 12</span><span>Поддержка на всех этапах поездки</span></div>
-        <div class="footer-legal"><strong>Юридическая информация</strong><span>ОГРН: 1072720000517</span><span>ИНН: 2720034247</span><span>КПП: 272101001</span><span class="footer-registry">РТО № 000321</span></div>
+        <div><strong>О компании</strong><a href={withBase('/about')}>Туроператор САХЭКСПО</a><span>{settings.address}</span><span>Поддержка на всех этапах поездки</span></div>
+        <div class="footer-legal"><strong>Юридическая информация</strong><span>ОГРН: {settings.ogrn}</span><span>ИНН: {settings.inn}</span><span>КПП: {settings.kpp}</span><span class="footer-registry">{settings.tourOperatorNumber}</span></div>
       </div>
-      <div class="wrap footer-bottom"><span>© САХЭКСПО · РТО № 000321</span><a href="tel:+79243123019">Связаться с менеджером</a></div>
+      <div class="wrap footer-bottom"><span>© САХЭКСПО · {settings.tourOperatorNumber}</span><a href={phoneHref}>Связаться с менеджером</a></div>
     </footer>
     <div class="mobile-quick-contact" aria-label="Связаться с САХЭКСПО">
-      <a href="tel:+79243123019">Позвонить</a>
+      <a href={phoneHref}>Позвонить</a>
       <button class="max-button" type="button" data-booking-open>Оставить заявку</button>
     </div>
     <OrderForm />
