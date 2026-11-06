@@ -53,6 +53,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           protocol: ftp
-          server-dir: /home/w/webkhv/sakhexpo/public_html/
+          server-dir: public_html/
           local-dir: ./dist/
           dangerous-clean-slate: false
