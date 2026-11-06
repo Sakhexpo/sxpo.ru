@@ -4,6 +4,7 @@ dist/
 /.tina/
 /public/admin/
 /tina/__generated__/
+/tina/tina-lock.json
 /tina-lock.json
 .DS_Store
 /.env
