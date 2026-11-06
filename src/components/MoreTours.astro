@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import TourCard from './TourCard.astro';
+import { withBase } from '../lib/paths';
+const activeTours = (await getCollection('tours')).filter(({ data }) => !data.archived);
+const featuredTours = activeTours.filter(({ data }) => data.featured).sort((a, b) => a.data.order - b.data.order).slice(0, 5);
+const featuredIds = new Set(featuredTours.map((tour) => tour.id));
+const tours = activeTours.filter((tour) => !featuredIds.has(tour.id)).sort((a, b) => a.data.order - b.data.order);
+---
+{tours.length > 0 && <section class="section more-tours-section">
+  <div class="wrap">
+    <div class="section-heading">
+      <div><span class="eyebrow eyebrow-dark">ЕЩЁ ИДЕИ ДЛЯ ОТДЫХА</span><h2>Другие туры этой зимой</h2></div>
+      <a class="text-link" href={withBase('/tours')}>Все зимние туры <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="tour-grid">
+      {tours.map((tour) => <TourCard tour={tour} />)}
+    </div>
+  </div>
+</section>}

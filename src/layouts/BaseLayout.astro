@@ -1,0 +1,88 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalPath?: string;
+}
+import '../styles/global.css';
+import { withBase } from '../lib/paths';
+import OrderForm from '../components/OrderForm.astro';
+const {
+  title = 'Туры из Хабаровска в Китай и по России — САХЭКСПО',
+  description = 'Туры из Хабаровска в Фуюань, Жаохэ, Бэйдайхэ и другие города Китая. Поможем выбрать маршрут, оформить документы и подготовиться к поездке.',
+  image = withBase('/images/tours/beidaihe.webp'),
+  canonicalPath = Astro.url.pathname,
+} = Astro.props;
+const canonical = new URL(canonicalPath, 'https://sxpo.ru').toString();
+const maxProfileUrl = 'https://max.ru/u/f9LHodD0cOKKakX25EpPK1U9H8QsbdZc_5tmKuu5ChgdNiUYnaFt2bn2DFU';
+const whatsAppUrl = 'https://wa.me/79243123019';
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10233f" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="САХЭКСПО" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, 'https://sxpo.ru')} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href={withBase('/logo.svg')} type="image/svg+xml" />
+    <link rel="preconnect" href="https://sxpo.ru" />
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body class:list={Astro.url.pathname === '/' ? ['home-page'] : []}>
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="site-header">
+      <div class="header-inner wrap">
+        <a class="brand" href={withBase('/')} aria-label="САХЭКСПО — на главную">
+          <img class="brand-logo" src={withBase('/logo.svg')} alt="" width="48" height="48" />
+          <span class="brand-name">САХЭКСПО<small>ТУРЫ ИЗ ХАБАРОВСКА</small></span>
+        </a>
+        <button class="header-max-quick max-button" type="button" data-booking-open aria-label="Оставить заявку"><span aria-hidden="true">✉</span><span>Заявка</span></button>
+        <button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
+        <nav class="nav" id="main-nav" aria-label="Главная навигация">
+          <a href={withBase('/tours')}>Зимние туры</a><a href={withBase('/about')}>О компании</a><a href={withBase('/photos')}>Фото</a><a href={withBase('/videos')}>Видео</a>
+          <a class="nav-phone" href="tel:+79243123019">+7 (924) 312-30-19</a>
+          <button class="button button-small max-button nav-booking" type="button" data-booking-open>Оставить заявку</button>
+        </nav>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="footer" id="about">
+      <div class="wrap footer-grid">
+        <div class="footer-brand-column"><a class="brand brand-light" href={withBase('/')}><img class="brand-logo" src={withBase('/logo.svg')} alt="" width="48" height="48" /><span class="brand-name">САХЭКСПО<small>ТУРЫ ИЗ ХАБАРОВСКА</small></span></a><p>Путешествия по Китаю и Дальнему Востоку с заботой о деталях.</p><a href="tel:+79243123019">+7 (924) 312-30-19</a><a href={maxProfileUrl} target="_blank" rel="noopener noreferrer">Написать в MAX ↗</a><a href={whatsAppUrl} target="_blank" rel="noopener noreferrer">Написать в WhatsApp ↗</a></div>
+        <div><strong>Направления</strong><a href={withBase('/tours')}>Зимние туры</a><a href={withBase('/archive')}>Архив туров</a><a href={withBase('/photos')}>Фотогалерея</a><a href={withBase('/videos')}>Видеогалерея</a></div>
+        <div><strong>О компании</strong><a href={withBase('/about')}>Туроператор САХЭКСПО</a><span>Хабаровск, ул. Набережная, 29, офис 12</span><span>Поддержка на всех этапах поездки</span></div>
+        <div class="footer-legal"><strong>Юридическая информация</strong><span>ОГРН: 1072720000517</span><span>ИНН: 2720034247</span><span>КПП: 272101001</span><span class="footer-registry">РТО № 000321</span></div>
+      </div>
+      <div class="wrap footer-bottom"><span>© САХЭКСПО · РТО № 000321</span><a href="tel:+79243123019">Связаться с менеджером</a></div>
+    </footer>
+    <div class="mobile-quick-contact" aria-label="Связаться с САХЭКСПО">
+      <a href="tel:+79243123019">Позвонить</a>
+      <button class="max-button" type="button" data-booking-open>Оставить заявку</button>
+    </div>
+    <OrderForm />
+    <script is:inline>
+      const menuButton = document.querySelector('.menu-toggle');
+      const navigation = document.querySelector('.nav');
+      menuButton?.addEventListener('click', () => {
+        const expanded = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', String(!expanded));
+        menuButton.setAttribute('aria-label', expanded ? 'Открыть меню' : 'Закрыть меню');
+        navigation?.classList.toggle('is-open', !expanded);
+      });
+      navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+        menuButton?.setAttribute('aria-expanded', 'false');
+        navigation.classList.remove('is-open');
+      }));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+---
+import { getCollection } from 'astro:content';
+const tours = (await getCollection('tours')).filter(({ data }) => !data.archived).sort((a, b) => a.data.order - b.data.order);
+const hotels = ['Пока не выбрал(а)', 'Уссури 3*', 'Дунцзян 3*', 'Сицзинь 3*', 'МиДу 4* — вид на город', 'МиДу 4* — вид на реку', 'Хаюе 4*', 'Atour 4*', 'Отель на термальных источниках', 'Гостиница в Баоцине'];
+const maxProfileUrl = 'https://max.ru/u/f9LHodD0cOKKakX25EpPK1U9H8QsbdZc_5tmKuu5ChgdNiUYnaFt2bn2DFU';
+const whatsAppUrl = 'https://wa.me/79243123019';
+---
+<dialog class="booking-dialog" id="booking-dialog" aria-labelledby="booking-title">
+  <div class="booking-dialog-inner">
+    <button class="booking-close" type="button" aria-label="Закрыть форму" data-booking-close>×</button>
+    <span class="eyebrow eyebrow-dark">ЗАЯВКА В САХЭКСПО</span>
+    <h2 id="booking-title">Подберём поездку для вас</h2>
+    <p class="booking-dialog-intro">Заполните форму — подготовим сообщение для выбранного мессенджера.</p>
+    <form id="booking-form" class="lead-form">
+      <label>Тур или направление
+        <select name="tour" required>
+          <option value="">Выберите тур</option>
+          {tours.map((tour) => <option value={tour.data.title}>{tour.data.title}</option>)}
+          <option value="Помогите выбрать тур">Помогите выбрать тур</option>
+        </select>
+      </label>
+      <div class="booking-form-row">
+        <label>Количество человек
+          <select name="guests" required>
+            {Array.from({ length: 8 }, (_, index) => <option value={String(index + 1)} selected={index === 0}>{index + 1} {index === 0 ? 'человек' : 'человека'}</option>)}
+            <option value="9+">9 и более</option>
+          </select>
+        </label>
+        <label>Гостиница
+          <input name="hotel" list="hotel-options" placeholder="Например, Atour 4*" />
+          <datalist id="hotel-options">{hotels.map((hotel) => <option value={hotel} />)}</datalist>
+        </label>
+      </div>
+      <label>Ваше имя<input type="text" name="name" autocomplete="name" placeholder="Как к вам обращаться" required /></label>
+      <label>Телефон<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 (924) 312-30-19" required /></label>
+      <div class="booking-channels">
+        <button class="button whatsapp-button" type="submit" data-booking-channel="whatsapp"><span>Продолжить в WhatsApp</span><span aria-hidden="true">↗</span></button>
+        <button class="button max-button booking-max-secondary" type="submit" data-booking-channel="max"><span>Продолжить в MAX</span><span aria-hidden="true">↗</span></button>
+      </div>
+      <p class="lead-consent" id="booking-status" aria-live="polite">Сообщение откроется в выбранном приложении. Проверьте его и нажмите «Отправить».</p>
+    </form>
+    <section class="booking-success" id="booking-success" hidden aria-live="polite">
+      <span class="booking-success-icon" aria-hidden="true">✓</span>
+      <h3>Заявка скопирована</h3>
+      <p>Откройте MAX, нажмите «Написать» и вставьте подготовленный текст в сообщение.</p>
+      <button class="button max-button" type="button" data-max-open>Открыть MAX <span aria-hidden="true">↗</span></button>
+      <button class="booking-back" type="button" data-booking-back>Вернуться к форме</button>
+    </section>
+  </div>
+</dialog>
+
+<script is:inline define:vars={{ maxProfileUrl, whatsAppUrl }}>
+  const bookingDialog = document.querySelector('#booking-dialog');
+  const bookingForm = document.querySelector('#booking-form');
+  const bookingStatus = document.querySelector('#booking-status');
+  const tourSelect = bookingForm?.elements.namedItem('tour');
+
+  document.querySelectorAll('[data-booking-open], [data-booking-tour]').forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      const requestedTour = trigger.dataset.bookingTour;
+      if (requestedTour && tourSelect) {
+        const option = [...tourSelect.options].find((item) => item.value === requestedTour);
+        tourSelect.value = option ? requestedTour : 'Помогите выбрать тур';
+      }
+      bookingDialog?.showModal();
+      window.setTimeout(() => bookingForm?.elements.namedItem('name')?.focus(), 80);
+    });
+  });
+
+  document.querySelector('[data-booking-close]')?.addEventListener('click', () => bookingDialog?.close());
+  bookingDialog?.addEventListener('click', (event) => {
+    if (event.target === bookingDialog) bookingDialog.close();
+  });
+
+  const bookingSuccess = document.querySelector('#booking-success');
+  const maxOpenButton = document.querySelector('[data-max-open]');
+  maxOpenButton?.addEventListener('click', () => window.open(maxProfileUrl, '_blank', 'noopener,noreferrer'));
+  document.querySelector('[data-booking-back]')?.addEventListener('click', () => {
+    bookingSuccess.hidden = true;
+    bookingForm.hidden = false;
+  });
+
+  bookingForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!bookingForm.reportValidity()) return;
+
+    const submitter = event.submitter;
+    const formData = new FormData(bookingForm);
+    const message = [
+      'Здравствуйте! Хочу забронировать тур САХЭКСПО.',
+      '',
+      `Тур: ${formData.get('tour')}`,
+      `Имя: ${formData.get('name')}`,
+      `Телефон: ${formData.get('phone')}`,
+      `Количество человек: ${formData.get('guests')}`,
+      `Гостиница: ${formData.get('hotel') || 'Нужна помощь с выбором'}`,
+    ].join('\n');
+
+    if (submitter?.dataset.bookingChannel === 'whatsapp') {
+      window.open(`${whatsAppUrl}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+      bookingStatus.textContent = 'Сообщение подготовлено в WhatsApp. Проверьте данные и нажмите «Отправить».';
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(message);
+      bookingForm.hidden = true;
+      bookingSuccess.hidden = false;
+    } catch {
+      window.prompt('Скопируйте текст заявки и вставьте его в MAX:', message);
+      bookingForm.hidden = true;
+      bookingSuccess.hidden = false;
+    }
+  });
+</script>

@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TourCard from '../../components/TourCard.astro';
+import { withBase } from '../../lib/paths';
+export async function getStaticPaths() {
+  const tours = await getCollection('tours');
+  return tours.map((tour) => ({ params: { slug: tour.data.oldPath.replace(/^\/tur\//, '').replace(/\/$/, '') }, props: { tour } }));
+}
+const { tour } = Astro.props;
+const { Content } = await render(tour);
+const all = (await getCollection('tours')).filter((item) => item.id !== tour.id && !item.data.archived).slice(0, 3);
+const origin = 'https://sxpo.ru';
+const breadcrumbData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: origin },
+    { '@type': 'ListItem', position: 2, name: 'Туры в Китай', item: `${origin}/#tours` },
+    { '@type': 'ListItem', position: 3, name: tour.data.title, item: new URL(tour.data.oldPath, origin).toString() },
+  ],
+};
+---
+<BaseLayout title={`${tour.data.title} из Хабаровска — САХЭКСПО`} description={tour.data.description} image={withBase(tour.data.images[0])} canonicalPath={tour.data.oldPath}>
+  <link slot="head" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbData)} />
+  <section class="tour-hero"><div class="wrap tour-hero-inner"><div class="breadcrumbs"><a href={withBase('/')}>Главная</a><span>/</span><a href={withBase('/#tours')}>Туры в Китай</a><span>/</span><span>{tour.data.title}</span></div><div class="tour-detail-grid"><div class="tour-detail-copy"><span class="eyebrow eyebrow-dark">{tour.data.category.toUpperCase()} · ИЗ ХАБАРОВСКА</span><h1>{tour.data.title}</h1><p class="tour-lead">{tour.data.description}</p><div class="detail-facts"><div><span>Длительность</span><strong>{tour.data.duration}</strong></div>{tour.data.schedule && <div><span>Расписание</span><strong>{tour.data.schedule}</strong></div>}</div><div class="detail-price">{tour.data.priceLabel?.startsWith('от ') && <span>Стоимость от</span>}<strong>{tour.data.priceLabel || 'Уточнить у менеджера'}</strong><small>Актуальную цену и даты подтвердите перед бронированием</small></div><a class="button" href="#tour-order">Уточнить даты и условия <span>↓</span></a></div><div class="swiper tour-slider" aria-label={`Фотографии тура «${tour.data.title}»`}><div class="swiper-wrapper">{tour.data.images.map((imgUrl, index) => <div class="swiper-slide"><img src={withBase(imgUrl)} alt={`${tour.data.destination} — ${tour.data.title}, фото ${index + 1}`} width="1200" height="800" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" fetchpriority={index === 0 ? 'high' : 'auto'} /></div>)}</div><span class="image-caption">{tour.data.destination}</span><div class="swiper-pagination"></div><button class="swiper-button-prev" type="button" aria-label="Предыдущее фото"></button><button class="swiper-button-next" type="button" aria-label="Следующее фото"></button></div></div></div></section>
+  {tour.data.hotelGalleries?.length > 0 && <section class="hotel-gallery-section"><div class="wrap"><div class="hotel-gallery-heading"><span class="eyebrow eyebrow-dark">РАЗМЕЩЕНИЕ</span><h2>Гостиницы в этом туре</h2><p>Посмотрите варианты размещения и выберите подходящий.</p></div>{tour.data.hotelGalleries.map((hotel) => <div class="hotel-gallery-group"><h3>{hotel.name}</h3><div class="hotel-gallery-track">{hotel.images.map((img, index) => <a class="hotel-photo" href={withBase(img)} target="_blank" rel="noreferrer"><img src={withBase(img)} alt={hotel.name + ' — фото ' + (index + 1)} loading="lazy" decoding="async" width="480" height="340" /></a>)}</div></div>)}</div></section>}
+  <section class="section tour-description"><div class="wrap description-layout"><aside><span class="eyebrow eyebrow-dark">ПЛАНИРУЕТЕ ПОЕЗДКУ?</span><h2>Поможем разобраться в деталях</h2><p>Подтвердим наличие мест, стоимость, гостиницу и условия поездки.</p><button class="button" type="button" data-booking-tour={tour.data.title}>Забронировать тур <span aria-hidden="true">↗</span></button></aside><article class="prose"><Content /></article></div></section>
+  <section class="section related-section"><div class="wrap"><div class="section-heading"><div><span class="eyebrow eyebrow-dark">МОЖЕТ ПОНРАВИТЬСЯ</span><h2>Ещё идеи для поездки</h2></div></div><div class="tour-grid">{all.map((item) => <TourCard tour={item} />)}</div></div></section>
+</BaseLayout>
+<script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sliderElement = document.querySelector('.tour-slider');
+    if (!sliderElement || typeof Swiper === 'undefined') return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    new Swiper(sliderElement, {
+      loop: true,
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      autoplay: reduceMotion ? false : { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
+      pagination: { el: sliderElement.querySelector('.swiper-pagination'), clickable: true },
+      navigation: { nextEl: sliderElement.querySelector('.swiper-button-next'), prevEl: sliderElement.querySelector('.swiper-button-prev') },
+      a11y: { enabled: true },
+    });
+  });
+</script>

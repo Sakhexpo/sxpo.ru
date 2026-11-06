@@ -1,0 +1,10 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../lib/paths';
+const photos = (await getCollection('photos')).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Фотогалерея Китая — САХЭКСПО" description="Фотографии городов, архитектуры, зимних фестивалей и отдыха в Китае. Галерея туристической компании САХЭКСПО из Хабаровска.">
+  <section class="editorial-hero gallery-hero"><div class="wrap"><div class="breadcrumbs"><a href={withBase('/')}>Главная</a><span>/</span><span>Фото</span></div><span class="eyebrow eyebrow-dark">КИТАЙ В КАДРЕ</span><h1>Места, которые хочется увидеть</h1><p>Города, традиционная архитектура, зимние огни и моменты путешествий по Китаю.</p></div></section>
+  <section class="section photo-gallery-section"><div class="wrap photo-gallery-grid">{photos.map((photo, index) => <figure class:list={[`photo-tile photo-tile-${index % 7}`]}><img src={withBase(photo.data.src)} alt={photo.data.alt} loading="lazy" decoding="async" /><figcaption><strong>{photo.data.title}</strong></figcaption></figure>)}</div></section>
+</BaseLayout>

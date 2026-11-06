@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TourCard from '../../components/TourCard.astro';
+import { withBase } from '../../lib/paths';
+const tours = (await getCollection('tours')).filter(({ data }) => !data.archived).sort((a, b) => a.data.order - b.data.order);
+const groups = [...new Set(tours.map(({ data }) => data.category))];
+---
+<BaseLayout title="Зимние туры в Китай из Хабаровска — цены и программы | САХЭКСПО" description="Каталог зимних туров из Хабаровска в Жаохэ, Цзямусы и Баоцин. Смотрите даты, продолжительность, гостиницы и стоимость новогодних поездок в Китай.">
+  <section class="catalog-hero"><div class="wrap"><div class="breadcrumbs"><a href={withBase('/')}>Главная</a><span>/</span><span>Зимние туры</span></div><span class="eyebrow eyebrow-dark">СЕЗОН 2026 / 2027</span><h1>Зимние туры в Китай<br />из Хабаровска</h1><p>Выберите направление и даты. В карточках — программа, варианты размещения и цены из актуальных предложений сезона.</p><button class="button" type="button" data-booking-open>Помогите выбрать тур <span>↗</span></button></div></section>
+  <section class="section catalog-section"><div class="wrap">
+    <div class="tour-filters" aria-label="Фильтры зимних туров">
+      <label class="tour-search"><span class="sr-only">Поиск тура</span><span aria-hidden="true">⌕</span><input id="catalog-search" type="search" placeholder="Например, Жаохэ или горные лыжи" autocomplete="off" /></label>
+      <div class="filter-chips" role="group" aria-label="Направления"><button type="button" class="filter-chip is-selected" data-filter="all" aria-pressed="true">Все предложения</button>{groups.map((group) => <button type="button" class="filter-chip" data-filter={group} aria-pressed="false">{group}</button>)}</div>
+      <p class="filter-status" aria-live="polite"><strong id="catalog-count">{tours.length}</strong> <span id="catalog-label">предложений</span></p>
+    </div>
+    <div class="tour-grid" id="catalog-results">{tours.map((tour) => <TourCard tour={tour} />)}</div>
+    <p class="no-results" id="catalog-empty" hidden>По этому запросу туров не найдено. Оставьте заявку — менеджер поможет подобрать маршрут.</p>
+  </div></section>
+</BaseLayout>
+<script is:inline>
+  const searchInput = document.querySelector('#catalog-search');
+  const cards = [...document.querySelectorAll('[data-tour-card]')];
+  const buttons = [...document.querySelectorAll('[data-filter]')];
+  const count = document.querySelector('#catalog-count');
+  const label = document.querySelector('#catalog-label');
+  const empty = document.querySelector('#catalog-empty');
+  let direction = new URLSearchParams(location.search).get('direction') || 'all';
+  function applyFilter() {
+    const query = searchInput.value.trim().toLocaleLowerCase('ru');
+    let shown = 0;
+    cards.forEach((card) => {
+      const visible = (direction === 'all' || card.dataset.category === direction) && (!query || card.textContent.toLocaleLowerCase('ru').includes(query));
+      card.hidden = !visible;
+      if (visible) shown++;
+    });
+    buttons.forEach((button) => {
+      const active = button.dataset.filter === direction;
+      button.classList.toggle('is-selected', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+    count.textContent = String(shown);
+    label.textContent = new Intl.PluralRules('ru').select(shown) === 'one' ? 'предложение' : new Intl.PluralRules('ru').select(shown) === 'few' ? 'предложения' : 'предложений';
+    empty.hidden = shown > 0;
+  }
+  buttons.forEach((button) => button.addEventListener('click', () => { direction = button.dataset.filter; applyFilter(); }));
+  searchInput.addEventListener('input', applyFilter);
+  applyFilter();
+</script>

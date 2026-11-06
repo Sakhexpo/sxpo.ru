@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+/.env
+/.env.*
+!/.env.example
+/.git-credentials
+/.ftp-sync-state.json
+/изображения  для использования на сайте/
+/китай изображения для зимних туров/
+/НОВЫЕ ТУРЫ ЗИМНИЕ 2026-2027/
+/фото гостиниц/

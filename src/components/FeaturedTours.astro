@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import { withBase } from '../lib/paths';
+const tours = (await getCollection('tours')).filter(({ data }) => data.featured && !data.archived).sort((a, b) => a.data.order - b.data.order).slice(0, 5);
+---
+<section class="featured-section" aria-labelledby="featured-title">
+  <div class="wrap">
+    <div class="featured-heading">
+      <div><span class="eyebrow eyebrow-dark">ЗИМА 2026 / 2027</span><h2 id="featured-title">Пять идей для зимней поездки</h2><p>Выберите направление и откройте страницу тура с программой, гостиницами и стоимостью.</p></div>
+      <div class="featured-controls" aria-label="Управление подборкой туров">
+        <button type="button" data-featured-scroll="-1" aria-label="Предыдущие туры">←</button>
+        <button type="button" data-featured-scroll="1" aria-label="Следующие туры">→</button>
+      </div>
+    </div>
+    <div class="featured-track" id="featured-tours" tabindex="0" aria-label="Пять актуальных зимних туров">
+      {tours.map((tour, index) => (
+        <a class="featured-card" href={withBase(tour.data.oldPath)}>
+          <img src={withBase(tour.data.images[0])} alt={`${tour.data.destination} зимой — ${tour.data.title}`} width="640" height="440" loading={index < 2 ? 'eager' : 'lazy'} decoding="async" />
+          <span class="featured-index">0{index + 1} / 05</span>
+          <span class="featured-card-copy"><span>{tour.data.category} <i>·</i> {tour.data.duration}</span><strong>{tour.data.title}</strong><span class="featured-price">{tour.data.priceLabel}</span></span>
+          <span class="featured-arrow" aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+    <div class="featured-progress" aria-hidden="true"><span></span></div>
+  </div>
+</section>
+<script is:inline>
+  const track = document.querySelector('#featured-tours');
+  document.querySelectorAll('[data-featured-scroll]').forEach((button) => button.addEventListener('click', () => {
+    const card = track?.querySelector('.featured-card');
+    track?.scrollBy({ left: (card?.getBoundingClientRect().width || 320) * Number(button.dataset.featuredScroll), behavior: 'smooth' });
+  }));
+  const progress = document.querySelector('.featured-progress span');
+  track?.addEventListener('scroll', () => {
+    const range = track.scrollWidth - track.clientWidth;
+    progress.style.transform = `scaleX(${range > 0 ? track.scrollLeft / range : 1})`;
+  }, { passive: true });
+</script>

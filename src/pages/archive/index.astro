@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TourCard from '../../components/TourCard.astro';
+import { withBase } from '../../lib/paths';
+const tours = (await getCollection('tours')).filter(({ data }) => data.archived).sort((a,b) => a.data.order-b.data.order);
+---
+<BaseLayout title="Архив туров — САХЭКСПО" description="Архивные программы поездок САХЭКСПО из Хабаровска. Сезонные туры сохранены для справки; актуальные предложения уточняйте в каталоге зимних туров.">
+  <section class="catalog-hero archive-hero"><div class="wrap"><span class="eyebrow eyebrow-dark">ПРОШЕДШИЕ СЕЗОНЫ</span><h1>Архив туров</h1><p>Программы прошлых сезонов сохранены для справки. Даты и цены могли измениться.</p><a class="button" href={withBase('/tours')}>Актуальные зимние туры <span aria-hidden="true">↗</span></a></div></section>
+  <section class="section catalog-section"><div class="wrap tour-grid">{tours.map((tour) => <TourCard tour={tour} />)}</div></section>
+</BaseLayout>

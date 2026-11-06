@@ -1,0 +1,10 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../lib/paths';
+const videos = (await getCollection('videos')).filter(({ data }) => !data.draft).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Видео о поездках в Китай — САХЭКСПО" description="Видео о Китае, маршрутах и поездках САХЭКСПО из Хабаровска.">
+  <section class="editorial-hero video-hero"><div class="wrap"><div class="breadcrumbs"><a href={withBase('/')}>Главная</a><span>/</span><span>Видео</span></div><span class="eyebrow eyebrow-dark">ВИДЕО О ПОЕЗДКАХ</span><h1>Китай в движении</h1><p>Смотрите города, маршруты и впечатления путешественников.</p></div></section>
+  {videos.length ? <section class="section video-library"><div class="wrap video-library-grid">{videos.map((video) => <article class="video-card"><div class="video-frame">{video.data.youtubeId ? <iframe src={`https://www.youtube-nocookie.com/embed/${video.data.youtubeId}`} title={video.data.title} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> : video.data.vimeoId ? <iframe src={`https://player.vimeo.com/video/${video.data.vimeoId}`} title={video.data.title} loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> : <div class="video-id-missing">Видео скоро появится</div>}</div><div><h2>{video.data.title}</h2><p>{video.data.description}</p></div></article>)}</div></section> : <section class="section video-empty-section"><div class="wrap video-empty-card"><img src={withBase('/images/winter/winter-03.webp')} alt="Вечерняя улица Китая зимой" loading="lazy" /><div><span class="eyebrow eyebrow-dark">ВИДЕОГАЛЕРЕЯ</span><h2>Видео о поездках скоро появятся</h2><p>Здесь будут собраны ролики о городах, маршрутах и впечатлениях путешественников.</p><a class="button" href={withBase('/tours')}>Выбрать поездку <span aria-hidden="true">↗</span></a></div></div></section>}
+</BaseLayout>
