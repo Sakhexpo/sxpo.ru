@@ -12,6 +12,8 @@ const tours = defineCollection({
     schedule: z.string().optional(),
     images: z.array(z.string()).min(1),
     hotelGalleries: z.array(z.object({ name: z.string(), images: z.array(z.string()).min(1) })).default([]),
+    included: z.array(z.string()).default([]),
+    notIncluded: z.array(z.string()).default([]),
     imageSrcset: z.string().optional(),
     category: z.string().default('Китай'),
     oldPath: z.string().optional(),

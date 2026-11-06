@@ -16,6 +16,8 @@ const tourFields = [
       { type: 'image', name: 'images', label: 'Фотографии гостиницы', list: true },
     ],
   },
+  { type: 'string', name: 'included', label: 'Что входит в стоимость', list: true },
+  { type: 'string', name: 'notIncluded', label: 'Что оплачивается отдельно', list: true },
   { type: 'string', name: 'imageSrcset', label: 'Дополнительные размеры изображения' },
   { type: 'string', name: 'category', label: 'Категория' },
   { type: 'string', name: 'oldPath', label: 'Существующий адрес страницы', description: 'Для нового тура оставьте пустым. У существующих туров не меняйте: это сохранит SEO и внешние ссылки.' },
