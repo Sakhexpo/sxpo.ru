@@ -11,6 +11,12 @@ images:
   - /images/winter/winter-11.webp
   - /images/winter/winter-38.webp
   - /images/winter/winter-12.webp
+  - /images/tours/added/baotsin-holiday-add-on-2days-2027/photo-01-optimized.webp
+  - /images/tours/added/baotsin-holiday-add-on-2days-2027/photo-02-optimized.webp
+  - /images/tours/added/baotsin-holiday-add-on-2days-2027/photo-03-optimized.webp
+  - /images/tours/added/baotsin-holiday-add-on-2days-2027/photo-04-optimized.webp
+  - /images/tours/added/baotsin-holiday-add-on-2days-2027/photo-05-optimized.webp
+  - /images/tours/added/baotsin-holiday-add-on-2days-2027/photo-06-optimized.webp
 hotelGalleries:
   - name: МиДу — глэмпинг у термальных источников
     images:

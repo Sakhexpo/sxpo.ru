@@ -11,6 +11,12 @@ images:
   - /images/winter/winter-07.webp
   - /images/winter/winter-11.webp
   - /images/winter/winter-26.webp
+  - /images/tours/added/zhaohe-holiday-6days-2027/photo-01-optimized.webp
+  - /images/tours/added/zhaohe-holiday-6days-2027/photo-02-optimized.webp
+  - /images/tours/added/zhaohe-holiday-6days-2027/photo-03-optimized.webp
+  - /images/tours/added/zhaohe-holiday-6days-2027/photo-04-optimized.webp
+  - /images/tours/added/zhaohe-holiday-6days-2027/photo-05-optimized.webp
+  - /images/tours/added/zhaohe-holiday-6days-2027/photo-06-optimized.webp
 category: "Жаохэ"
 oldPath: /tur/novogodnie-kanikuly-v-zhaohe-6-dnej/
 hotelGalleries:

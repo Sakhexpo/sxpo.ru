@@ -11,6 +11,12 @@ images:
   - /images/winter/winter-11.webp
   - /images/winter/winter-23.webp
   - /images/winter/winter-35.webp
+  - /images/tours/added/zhaohe-baotsin-ski-2027/photo-01-optimized.webp
+  - /images/tours/added/zhaohe-baotsin-ski-2027/photo-02-optimized.webp
+  - /images/tours/added/zhaohe-baotsin-ski-2027/photo-03-optimized.webp
+  - /images/tours/added/zhaohe-baotsin-ski-2027/photo-04-optimized.webp
+  - /images/tours/added/zhaohe-baotsin-ski-2027/photo-05-optimized.webp
+  - /images/tours/added/zhaohe-baotsin-ski-2027/photo-06-optimized.webp
 category: "Горнолыжный отдых"
 oldPath: /tur/zimnie-kanikuly-baotsin-gornye-lyzhi/
 featured: true

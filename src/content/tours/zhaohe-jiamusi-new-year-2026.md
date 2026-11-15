@@ -11,6 +11,12 @@ images:
   - /images/winter/winter-10.webp
   - /images/winter/winter-07.webp
   - /images/winter/winter-17.webp
+  - /images/tours/added/zhaohe-jiamusi-new-year-2026/photo-01-optimized.webp
+  - /images/tours/added/zhaohe-jiamusi-new-year-2026/photo-02-optimized.webp
+  - /images/tours/added/zhaohe-jiamusi-new-year-2026/photo-03-optimized.webp
+  - /images/tours/added/zhaohe-jiamusi-new-year-2026/photo-04-optimized.webp
+  - /images/tours/added/zhaohe-jiamusi-new-year-2026/photo-05-optimized.webp
+  - /images/tours/added/zhaohe-jiamusi-new-year-2026/photo-06-optimized.webp
 category: "Комбинированные туры"
 oldPath: /tur/novyj-god-zhaohe-czyamusy/
 hotelGalleries:

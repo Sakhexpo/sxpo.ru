@@ -166,6 +166,98 @@ html,body{max-width:100%;overflow-x:clip}
 }
 @media(max-width:370px){.header-max-quick{min-height:40px;padding-inline:9px}.brand{gap:7px}.brand-name{font-size:13px}.trust-items>.trust-card{padding-inline:9px}.trust-icon{width:36px;height:36px;flex-basis:36px}.card-more-button{gap:6px;padding-inline:9px}}
 
+/* САХЭКСПО brand refresh: clean red, white and warm neutral surfaces. */
+:root{--ink:#20202a;--navy:#24232b;--orange:#c82032;--green:#b91f32;--muted:#73737c;--line:#ece8e8}
+.button,.tour-clarify-button,.card-more-button{background:#c82032;color:#fff;border-color:#c82032;box-shadow:0 10px 25px #c8203230}
+.button:hover,.tour-clarify-button:hover,.card-more-button:hover{background:#a91427;color:#fff;border-color:#a91427;box-shadow:0 14px 32px #c8203245}
+.card-more-button{background:#c82032;color:#fff}
+.button-light{background:#fff;color:#b91f32;border-color:#fff}
+.button-light:hover{background:#fff1f2;color:#a91427}
+.nav>a:not(.button):hover,.breadcrumbs a:hover,.text-link,.clear-filters,.prose a{color:#b91f32}
+.filter-chip:hover{border-color:#c82032}
+.filter-chip.is-selected{background:#c82032;border-color:#c82032;color:#fff}
+.tour-search:focus-within,.lead-form input:focus,.lead-form select:focus{border-color:#c82032;box-shadow:0 0 0 4px #c820321a;outline-color:#c820322a}
+.lead-form input:focus,.lead-form select:focus{outline:3px solid #c820322a}
+.detail-price strong{color:#b91f32}
+.lead-call,.description-layout aside .button{color:#b91f32}
+.description-layout aside .button{color:#fff}
+.mobile-quick-contact a:first-child{border-color:#b91f32;color:#b91f32}
+.mobile-quick-contact a:last-child,.mobile-quick-contact button{background:#c82032;color:#fff;box-shadow:0 7px 20px #c8203236}
+.swiper-pagination-bullet-active{background:#c82032!important}
+.tour-slider .swiper-pagination-bullet-active{background:#c82032}
+.tour-slider .swiper-button-prev,.tour-slider .swiper-button-next{background:#a7172cbd}
+.tour-inclusions .inclusion-card-included li:before{background:#e6f4eb}
+.winter-direction-grid>a:hover{border-color:#d84a58}
+
+/* The homepage hero uses a full-bleed winter photograph with legible copy over it. */
+.winter-hero-cinematic{isolation:isolate;min-height:640px;padding:0;background:#35151b;color:#fff}
+.winter-hero-cinematic .winter-hero-glow{inset:-35% -10% auto 45%;height:680px;border-color:#ffccd022;box-shadow:0 0 0 70px #ffccd014,0 0 0 150px #ffccd00b}
+.winter-hero-cinematic .winter-hero-inner{position:static;display:block;min-height:590px;padding-top:1px}
+.winter-hero-cinematic .winter-hero-copy{max-width:800px;padding:90px 0 35px}
+.winter-hero-cinematic .winter-hero-copy h1{max-width:780px;font-size:clamp(54px,7.2vw,94px);line-height:.98;text-wrap:balance}
+.winter-hero-cinematic .winter-hero-copy h1 em{color:#ff707d}
+.winter-hero-cinematic .winter-hero-copy>p{max-width:630px;color:#fff;font-size:clamp(17px,1.6vw,21px)}
+.winter-hero-cinematic .winter-hero-art{position:absolute;z-index:-1;inset:0;width:auto;height:auto;border:0;border-radius:0;box-shadow:none;transform:none}
+.winter-hero-cinematic .winter-hero-art img{object-fit:cover;object-position:center 45%;filter:saturate(.88)}
+.winter-hero-cinematic .winter-hero-art:after{inset:0;background:linear-gradient(90deg,#291319ed 0%,#291319cf 40%,#29131954 74%,#29131930 100%),linear-gradient(0deg,#291319a8,transparent 42%)}
+.winter-hero-cinematic .winter-hero-caption{right:clamp(24px,6vw,90px);bottom:74px;left:auto;max-width:260px;padding:17px 19px;border:1px solid #ffffff40;border-radius:18px;background:#27131973;backdrop-filter:blur(13px);transform:none}
+.winter-hero-cinematic .winter-hero-caption span{color:#ffb3ba}
+.winter-hero-cinematic .winter-hero-caption strong{font-size:17px}
+.winter-hero-cinematic .winter-hero-bottom{position:relative;z-index:2;margin-top:-7px;color:#f6dfe1}
+.winter-hero-cinematic .eyebrow i{background:#ff6877;box-shadow:0 0 0 5px #ff68772b}
+.winter-hero-cinematic .hero-secondary-button{border-color:#ffffff8c;background:#ffffff1c;color:white}
+.winter-hero-cinematic .button{background:#c82032;color:#fff}
+
+/* Preserve portrait social cards and their embedded text in both gallery and lightbox. */
+.tour-slider{background:#f5f1ef;touch-action:pan-y}
+.tour-slider .swiper-slide{display:flex;align-items:center;justify-content:center;background:#f5f1ef}
+.tour-slide-open{display:flex;width:100%;height:100%;align-items:center;justify-content:center;padding:8px;border:0;background:transparent;cursor:zoom-in}
+.tour-slider .swiper-slide img{width:100%;height:100%;object-fit:contain;object-position:center;background:#f5f1ef}
+.hotel-photo{padding:0;border:0;cursor:zoom-in}
+.hotel-photo img{object-fit:contain;background:#f4f1ef}
+.photo-lightbox{position:fixed;inset:0;width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:56px clamp(54px,8vw,120px);border:0;background:#171318f5;color:#fff;overflow:hidden}
+.photo-lightbox[open]{display:grid;grid-template-columns:52px minmax(0,1fr) 52px;align-items:center;justify-items:center;gap:clamp(8px,2vw,24px)}
+.photo-lightbox::backdrop{background:#100d10ed}
+.photo-lightbox figure{display:flex;width:100%;height:100%;margin:0;flex-direction:column;align-items:center;justify-content:center;min-width:0;min-height:0}
+.photo-lightbox figure img{display:block;width:100%;height:calc(100% - 38px);object-fit:contain}
+.photo-lightbox figcaption{max-width:100%;padding-top:10px;color:#fff;font-size:14px;text-align:center}
+.lightbox-close,.lightbox-arrow{display:grid;place-items:center;border:1px solid #ffffff70;border-radius:50%;background:#ffffff1b;color:#fff;cursor:pointer;backdrop-filter:blur(8px)}
+.lightbox-close{position:absolute;z-index:2;top:calc(14px + env(safe-area-inset-top));right:18px;width:48px;height:48px;font-size:34px;line-height:1}
+.lightbox-arrow{width:48px;height:48px;font-size:40px;line-height:1}
+.lightbox-close:hover,.lightbox-arrow:hover{background:#c82032}
+
+/* Vertical VK shorts: horizontal snap gallery, comfortable on touch screens. */
+.video-swipe-hint{margin:0 0 16px;color:#74737b;font-size:14px}
+.video-swipe-hint span{color:#c82032;font-weight:800}
+.video-library-grid{display:flex;gap:18px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:thin;padding:4px 2px 17px}
+.video-card{flex:0 0 clamp(240px,27vw,330px);scroll-snap-align:start}
+.video-frame{aspect-ratio:9/16;background:#231c20}
+.video-card>div:last-child{padding:16px 17px}
+.video-card h2{font-size:19px}
+.video-card p{font-size:14px}
+.tour-video-section{background:#fffafa}
+
+@media(max-width:620px){
+  .winter-hero-cinematic{min-height:0;padding:0 0 18px}
+  .winter-hero-cinematic .winter-hero-inner{min-height:630px}
+  .winter-hero-cinematic .winter-hero-copy{padding:65px 0 35px}
+  .winter-hero-cinematic .winter-hero-copy h1{font-size:clamp(46px,12vw,62px);max-width:100%}
+  .winter-hero-cinematic .winter-hero-copy>p{font-size:17px;max-width:35ch}
+  .winter-hero-cinematic .winter-hero-art img{object-position:58% center}
+  .winter-hero-cinematic .winter-hero-art:after{background:linear-gradient(90deg,#291319e8,#291319a8 72%,#29131970),linear-gradient(0deg,#291319dc 0%,transparent 72%)}
+  .winter-hero-cinematic .winter-hero-caption{display:none}
+  .winter-hero-cinematic .winter-hero-bottom{margin-top:0}
+  .video-library-grid{gap:13px;margin-right:-16px;padding-right:16px}
+  .video-card{flex-basis:min(76vw,315px)}
+  .photo-lightbox{padding:58px 8px 20px}
+  .photo-lightbox[open]{grid-template-columns:34px minmax(0,1fr) 34px;gap:4px}
+  .lightbox-arrow{width:34px;height:42px;border-radius:13px;font-size:32px}
+  .lightbox-close{top:calc(9px + env(safe-area-inset-top));right:10px;width:42px;height:42px}
+  .photo-lightbox figure img{height:calc(100% - 52px)}
+  .photo-lightbox figcaption{font-size:12px}
+}
+@media(max-width:380px){.winter-hero-cinematic .winter-hero-inner{min-height:670px}.winter-hero-cinematic .winter-hero-copy{padding-top:50px}}
+
 /* Seasonal landing page and five-tour horizontal carousel. */
 .winter-hero{position:relative;overflow:hidden;padding:52px 0 20px;background:radial-gradient(ellipse at 78% 27%,#344c61 0%,transparent 34%),linear-gradient(125deg,#10233f,#18364b 60%,#1c3d50);color:#fff}
 .winter-hero-glow{position:absolute;inset:auto -12% -68% 32%;height:500px;border:1px solid #d6e1e222;border-radius:50%;box-shadow:0 0 0 70px #d6e1e211,0 0 0 140px #d6e1e208;pointer-events:none}

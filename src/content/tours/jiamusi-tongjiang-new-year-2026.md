@@ -10,6 +10,12 @@ images:
   - /images/winter/winter-14.webp
   - /images/winter/winter-29.webp
   - /images/winter/winter-17.webp
+  - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-01-optimized.webp
+  - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-02-optimized.webp
+  - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-03-optimized.webp
+  - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-04-optimized.webp
+  - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-05-optimized.webp
+  - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-06-optimized.webp
 category: Цзямусы
 oldPath: /tur/novyj-god-czyamusy-cherez-tunczyan/
 featured: false

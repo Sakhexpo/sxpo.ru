@@ -9,7 +9,7 @@ const orgData = { '@context': 'https://schema.org', '@type': 'TravelAgency', nam
 ---
 <BaseLayout title={home.seoTitle} description={home.seoDescription}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(orgData)} />
-  <section class="winter-hero">
+  <section class="winter-hero winter-hero-cinematic">
     <div class="winter-hero-glow" aria-hidden="true"></div>
     <div class="wrap winter-hero-inner">
       <div class="winter-hero-copy">
@@ -19,7 +19,7 @@ const orgData = { '@context': 'https://schema.org', '@type': 'TravelAgency', nam
         <div class="hero-actions"><a class="button" href={withBase('/tours')}>{home.heroButton} <span aria-hidden="true">↗</span></a><button class="hero-secondary-button" type="button" data-booking-open>Подобрать поездку</button></div>
         <div class="winter-proof"><span>САХЭКСПО</span><i></i><span>Туроператор · РТО № 000321</span><i></i><span>Из Хабаровска</span></div>
       </div>
-      <div class="winter-hero-art">
+      <div class="winter-hero-art" aria-hidden="true">
         <img src={withBase(home.heroImage || '/images/winter/winter-17.webp')} alt="Зимний фестиваль ледяных скульптур в Китае" width="900" height="1100" fetchpriority="high" />
         <div class="winter-hero-caption"><span>{home.heroCaptionText}</span><strong>{home.heroCaptionTitle}</strong></div>
         <span class="winter-orbit winter-orbit-one" aria-hidden="true"></span><span class="winter-orbit winter-orbit-two" aria-hidden="true"></span>
