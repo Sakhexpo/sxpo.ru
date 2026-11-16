@@ -1,51 +1,50 @@
 ---
-title: "Новогодние каникулы в Жаохэ — 6 дней"
-description: "Шестидневная поездка из Хабаровска в Жаохэ с 4 по 9 января. Проживание в гостинице, завтраки и свободное время; доступны дополнительные поездки в Баоцин."
-destination: "Жаохэ"
-duration: "6 дней / 5 ночей"
+title: Новогодние каникулы в Жаохэ — 6 дней
+description: 'Шестидневная поездка из Хабаровска в Жаохэ с 4 по 9 января. Проживание в гостинице, завтраки и свободное время; доступны дополнительные поездки в Баоцин.'
+destination: Жаохэ
+duration: 6 дней / 5 ночей
 priceFrom: 21750
-priceLabel: "от 21 750 ₽"
-schedule: "4–9 января"
+priceLabel: от 21 750 ₽
+schedule: 4–9 января
 images:
+  - /images/winter/winter-26.webp
   - /images/winter/winter-03.webp
   - /images/winter/winter-07.webp
   - /images/winter/winter-11.webp
-  - /images/winter/winter-26.webp
   - /images/tours/added/zhaohe-holiday-6days-2027/photo-01-optimized.webp
   - /images/tours/added/zhaohe-holiday-6days-2027/photo-02-optimized.webp
   - /images/tours/added/zhaohe-holiday-6days-2027/photo-03-optimized.webp
   - /images/tours/added/zhaohe-holiday-6days-2027/photo-04-optimized.webp
   - /images/tours/added/zhaohe-holiday-6days-2027/photo-05-optimized.webp
   - /images/tours/added/zhaohe-holiday-6days-2027/photo-06-optimized.webp
-category: "Жаохэ"
-oldPath: /tur/novogodnie-kanikuly-v-zhaohe-6-dnej/
 hotelGalleries:
-  - name: "МиДу 4*"
+  - name: МиДу 4*
     images:
       - /images/hotels/gostinicza-midu-1.webp
       - /images/hotels/gostinicza-midu-2.webp
       - /images/hotels/gostinicza-midu-3.webp
       - /images/hotels/gostinicza-midu-4.webp
-  - name: "Хаюе 4*"
+  - name: Хаюе 4*
     images:
       - /images/hotels/gostinicza-hayue-1.webp
       - /images/hotels/gostinicza-hayue-2.webp
       - /images/hotels/gostinicza-hayue-3.webp
       - /images/hotels/gostinicza-hayue-4.webp
+included:
+  - проезд
+  - проживание
+  - питание по программе
+  - услуги гида-переводчика
+  - медицинская страховка
+  - оформление документов
+notIncluded:
+  - Дополнительные поездки
+  - питание
+category: Жаохэ
+oldPath: /tur/novogodnie-kanikuly-v-zhaohe-6-dnej/
 featured: false
 archived: false
 order: 4
-included:
-  - "проезд"
-  - "проживание"
-  - "питание по программе"
-  - "услуги гида-переводчика"
-  - "медицинская страховка"
-  - "оформление документов"
-notIncluded:
-  - "Дополнительные поездки"
-  - "питание"
-
 ---
 
 ## Шесть дней на новогодних каникулах в Жаохэ
@@ -66,11 +65,11 @@ notIncluded:
 
 ## Гостиницы и стоимость
 
-| Гостиница | На 2–3 человек | Доплата за одноместное | Ребёнок без места |
-| --- | ---: | ---: | ---: |
-| Уссури 3* | 21 750 ₽ | 11 000 ₽ | 13 300 ₽ |
-| МиДу 4*, вид на город | 25 000 ₽ | 15 600 ₽ | 13 300 ₽ |
-| МиДу 4*, вид на реку | 27 600 ₽ | 17 550 ₽ | 13 300 ₽ |
-| Хаюе 4*, центр | 25 000 ₽ | Уточнить | 13 300 ₽ |
+| Гостиница              | На 2–3 человек | Доплата за одноместное | Ребёнок без места |
+| ---------------------- | -------------: | ---------------------: | ----------------: |
+| Уссури 3\*             |       21 750 ₽ |               11 000 ₽ |          13 300 ₽ |
+| МиДу 4\*, вид на город |       25 000 ₽ |               15 600 ₽ |          13 300 ₽ |
+| МиДу 4\*, вид на реку  |       27 600 ₽ |               17 550 ₽ |          13 300 ₽ |
+| Хаюе 4\*, центр        |       25 000 ₽ |               Уточнить |          13 300 ₽ |
 
 Доплату за одноместное размещение в гостинице Хаюе уточните у менеджера.
