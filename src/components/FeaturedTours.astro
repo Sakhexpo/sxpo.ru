@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import { withBase, tourPath } from '../lib/paths';
 import home from '../content/pages/home.json';
-const tours = (await getCollection('tours')).filter(({ data }) => data.featured && !data.archived).sort((a, b) => a.data.order - b.data.order).slice(0, 5);
+const tours = (await getCollection('tours')).filter(({ data }) => data.featured && !data.archived).sort((a, b) => a.data.order - b.data.order).slice(0, 6);
 ---
 <section class="featured-section" aria-labelledby="featured-title">
   <div class="wrap">
@@ -13,11 +13,11 @@ const tours = (await getCollection('tours')).filter(({ data }) => data.featured 
         <button type="button" data-featured-scroll="1" aria-label="Следующие туры">→</button>
       </div>
     </div>
-    <div class="featured-track" id="featured-tours" tabindex="0" aria-label="Пять актуальных зимних туров">
+    <div class="featured-track" id="featured-tours" tabindex="0" aria-label={`${tours.length} актуальных туров`}>
       {tours.map((tour, index) => (
         <a class="featured-card" href={withBase(tourPath(tour))}>
           <img src={withBase(tour.data.images[0])} alt={`${tour.data.destination} зимой — ${tour.data.title}`} width="640" height="440" loading={index < 2 ? 'eager' : 'lazy'} decoding="async" />
-          <span class="featured-index">0{index + 1} / 05</span>
+          <span class="featured-index">0{index + 1} / {String(tours.length).padStart(2, '0')}</span>
           <span class="featured-card-copy"><span>{tour.data.category} <i>·</i> {tour.data.duration}</span><strong>{tour.data.title}</strong><span class="featured-price">{tour.data.priceLabel}</span></span>
           <span class="featured-arrow" aria-hidden="true">↗</span>
         </a>
