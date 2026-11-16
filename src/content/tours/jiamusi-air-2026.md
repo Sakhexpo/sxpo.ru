@@ -7,9 +7,9 @@ priceFrom: 27230
 priceLabel: от 27 230 ₽
 schedule: Вылеты по субботам и вторникам
 images:
+  - /images/gallery/china-11.webp
   - /images/i.webp
   - /images/cziamusi-(1).webp
-  - /images/gallery/china-11.webp
   - /images/gallery/china-06.webp
   - /images/tours/jiamusi-air/hotel-atour.webp
   - /images/tours/jiamusi-air/hotel-lavande.webp
