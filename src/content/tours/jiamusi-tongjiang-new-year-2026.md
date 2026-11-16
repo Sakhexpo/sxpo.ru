@@ -7,31 +7,32 @@ priceFrom: 36500
 priceLabel: от 36 500 ₽
 schedule: 30 декабря — 4 января
 images:
-  - /images/winter/winter-14.webp
-  - /images/winter/winter-29.webp
+  - /images/cziamusi-(1).webp
   - /images/winter/winter-17.webp
+  - /images/i.webp
+  - /images/winter/winter-29.webp
   - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-01-optimized.webp
+  - /images/winter/winter-14.webp
   - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-02-optimized.webp
   - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-03-optimized.webp
   - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-04-optimized.webp
   - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-05-optimized.webp
   - /images/tours/added/jiamusi-tongjiang-new-year-2026/photo-06-optimized.webp
+included:
+  - проезд
+  - проживание
+  - питание по программе
+  - сопровождение гида-переводчика
+  - медицинская страховка
+  - оформление документов
+notIncluded:
+  - Экскурсии
+  - дополнительное питание
 category: Цзямусы
 oldPath: /tur/novyj-god-czyamusy-cherez-tunczyan/
 featured: false
 archived: false
 order: 10
-included:
-  - "проезд"
-  - "проживание"
-  - "питание по программе"
-  - "сопровождение гида-переводчика"
-  - "медицинская страховка"
-  - "оформление документов"
-notIncluded:
-  - "Экскурсии"
-  - "дополнительное питание"
-
 ---
 
 ## Новогодний маршрут через Тунцзян
@@ -52,7 +53,7 @@ notIncluded:
 
 ## Гостиницы и стоимость
 
-| Гостиница | На 2–3 человек | Доплата за одноместное | Ребёнок без места |
-| --- | ---: | ---: | ---: |
-| Сицзинь 3* | 36 500 ₽ | 8 500 ₽ | 27 400 ₽ |
-| Atour 4* | 40 400 ₽ | 12 400 ₽ | 27 400 ₽ |
+| Гостиница   | На 2–3 человек | Доплата за одноместное | Ребёнок без места |
+| ----------- | -------------: | ---------------------: | ----------------: |
+| Сицзинь 3\* |       36 500 ₽ |                8 500 ₽ |          27 400 ₽ |
+| Atour 4\*   |       40 400 ₽ |               12 400 ₽ |          27 400 ₽ |
